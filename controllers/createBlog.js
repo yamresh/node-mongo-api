@@ -1,6 +1,8 @@
 const Posts = require("../database/modals/Posts");
+const log = require("../config/loggers");
 
 module.exports = (req, res) => {
+  log.info(req.url);
   const post = new Posts(req.body);
   post
     .save()

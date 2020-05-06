@@ -4,6 +4,8 @@ const bodyParse = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 
+const log = require("./config/loggers");
+log.info(" App has been started ");
 mongoose.connect(
   process.env.MONGO_DB_CONNECTION,
   {
@@ -11,7 +13,7 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   () => {
-    console.log("=== Connected to DB ======");
+    log.info("=== Connected to DB ======");
   }
 );
 
@@ -37,5 +39,5 @@ app.post("/blog/create", createBlog);
 app.get("/blog/:id", getBlogByUser);
 
 app.listen(process.env.PORT, () => {
-  console.log("Server started @ PORT " + process.env.PORT);
+  log.warn("Server started @ PORT " + process.env.PORT);
 });
