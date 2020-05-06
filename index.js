@@ -18,14 +18,23 @@ mongoose.connect(
 const usersController = require("./controllers/users");
 const usersRegisterController = require("./controllers/usersRegisterController");
 const userLoginController = require("./controllers/userLoginController");
-
+const getBlog = require("./controllers/getBlogs");
+const createBlog = require("./controllers/createBlog");
+const getBlogByUser = require("./controllers/getBlogByUser");
 app.use(bodyParse.json());
 
-app.get("/", usersController);
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Blog Product app" });
+});
 
 app.get("/users", usersController);
 app.post("/users/register", usersRegisterController);
 app.post("/users/login", userLoginController);
+
+app.get("/blogs", getBlog);
+app.post("/blog/create", createBlog);
+
+app.get("/blog/:id", getBlogByUser);
 
 app.listen(process.env.PORT, () => {
   console.log("Server started @ PORT " + process.env.PORT);
